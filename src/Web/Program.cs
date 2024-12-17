@@ -1,5 +1,8 @@
+using Finnegans.Application;
 using Finnegans.Application.PedidoDeVenta.Queries.GetPedidoVenta;
+using Finnegans.Infrastructure;
 using Finnegans.Infrastructure.Data;
+using Finnegans.Web;
 using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,11 +34,14 @@ app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseSwaggerUi(settings =>
-{
-    settings.Path = "/api";
-    settings.DocumentPath = "/api/specification.json";
-});
+//app.UseSwaggerUi(settings =>
+//{
+//settings.Path = "/api";
+//settings.DocumentPath = "/api/specification.json";
+//});
+
+
+app.UseSwaggerUi();
 
 app.MapControllerRoute(
     name: "default",

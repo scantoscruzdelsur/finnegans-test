@@ -17,9 +17,7 @@ public class CancelPedidoVentaCommandHandler : IRequestHandler<CancelPedidoVenta
     {
         var httpClient = _httpClientFactory.CreateClient();
 
-        var idexterna = $"{request.FCNic}_{request.FCReceptor:0000}_{request.FCRemito.Substring(0, 13)}";
-
-        var url = $"https://api.teamplace.finneg.com/api/CDSpedidoVenta/{idexterna}?ACCESS_TOKEN={request.AccessToken}";
+        var url = $"https://api.teamplace.finneg.com/api/CDSpedidoVenta/{request.IdentificacionExterna}?ACCESS_TOKEN={request.AccessToken}";
 
         var response = await httpClient.GetAsync(url, cancellationToken);
 
@@ -29,9 +27,15 @@ public class CancelPedidoVentaCommandHandler : IRequestHandler<CancelPedidoVenta
         }
 
         var pedidoVenta = await response.Content.ReadFromJsonAsync<PedidoVenta>(cancellationToken: cancellationToken);
+
         if (pedidoVenta == null)
         {
             throw new Exception("Error al deserializar el pedido de venta.");
+        }
+
+        if (string.IsNullOrEmpty(pedidoVenta.TransaccionSubtipoCodigo))
+        {
+            throw new Exception("Error, SubtipoCodigo no puede estar vacio o ser null");
         }
 
         pedidoVenta.vinculacionOrigen = pedidoVenta.IdentificacionExterna;
@@ -40,26 +44,31 @@ public class CancelPedidoVentaCommandHandler : IRequestHandler<CancelPedidoVenta
         pedidoVenta.Fecha = DateTime.Now.ToString("yyyy-MM-dd");
         pedidoVenta.WorkflowCodigo = "REVERSO";
 
-        int cTDOCCTE = request.FCCodigo switch
+        switch (pedidoVenta.TransaccionSubtipoCodigo)
         {
-            7 => 3,
-            9 => 2,
-            _ when request.FCTipo == "O" => 5,
-            _ when request.FCFormpag == "0" => 0,
-            _ when request.FCFormpag == "1" => 1,
-            _ => 0
-        };
+            case "CARTAPORTE":
+                pedidoVenta.TransaccionSubtipoCodigo = "REVCARTAPORTE";
+                break;
+            case "CONTADO":
+                pedidoVenta.TransaccionSubtipoCodigo = "REVCONTADO";
+                break;
+            case "GUIADISTRIBUCION":
+                pedidoVenta.TransaccionSubtipoCodigo = "REVGUIASDISTRIBUCION";
+                break;
+            case "CORREO":
+                pedidoVenta.TransaccionSubtipoCodigo = "REVCORREO";
+                break;
+            case "CONTRARREEMBOLSO":
+                pedidoVenta.TransaccionSubtipoCodigo = "REVCONTRARREEMBOLSO";
+                break;
+            case "ODS":
+                pedidoVenta.TransaccionSubtipoCodigo = "REVODS";
+                break;
+            case "GUIAINTERNA":
+                pedidoVenta.TransaccionSubtipoCodigo = "REVGUIAINTERNA";
+                break;
+        }
 
-        pedidoVenta.TransaccionSubtipoCodigo = cTDOCCTE switch
-        {
-            0 => "REVCARTAPORTE",
-            1 => "REVCONTADO",
-            2 => "REVGUIASDISTRIBUCION",
-            3 => "REVCORREO",
-            4 => "REVCONTRARREEMBOLSO",
-            5 => "REVODS",
-            _ => pedidoVenta.TransaccionSubtipoCodigo
-        };
 
         foreach (var item in pedidoVenta.Items)
         {
@@ -73,6 +82,11 @@ public class CancelPedidoVentaCommandHandler : IRequestHandler<CancelPedidoVenta
         {
             throw new Exception($"Error al enviar el pedido de venta reverso. StatusCode: {postResponse.StatusCode}");
         }
+
+        // Pegarle al SP que está modificando flor
+
+        // En el caso de que esté todo Ok, auditar la acción con la tabla de auditoría (AuditoriaAnulacionYModificacion)
+
 
         return Unit.Value;
     }

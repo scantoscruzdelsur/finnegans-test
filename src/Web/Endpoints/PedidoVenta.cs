@@ -78,8 +78,9 @@ public class PedidoVentaEndpoint : EndpointGroupBase
         return Results.NoContent();
     }
 
-    public async Task<IResult> CancelPedidoVenta(ISender sender, string empresa, string nic, string remito, int receptor, int codigo, string tipo, string formpag, [FromHeader] string accessToken, CancelPedidoVentaCommand command)
+    public async Task<IResult> CancelPedidoVenta(ISender sender, string id, [FromHeader] string accessToken)
     {
+        var command = new CancelPedidoVentaCommand(id, accessToken);
         await sender.Send(command);
         return Results.NoContent();
     }
