@@ -1,0 +1,995 @@
+{
+  "x-generator": "NSwag v14.0.3.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CDS Finnegans API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/PedidoVenta/Fecha/{updatedSince}": {
+      "get": {
+        "operationId": "GetPedidosPorFecha",
+        "parameters": [
+          {
+            "name": "updatedSince",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "accessToken",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PedidoVenta"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PedidoVenta/{id}": {
+      "get": {
+        "operationId": "GetPedidoVenta",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "accessToken",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PedidoVenta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "UpdatePedidoVenta",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "accessToken",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePedidoVentaCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 3
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeletePedidoVenta",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "accessToken",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/PedidoVenta": {
+      "post": {
+        "operationId": "CreatePedidoVenta",
+        "parameters": [
+          {
+            "name": "accessToken",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePedidoVentaCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/PedidoVenta/Cancel": {
+      "put": {
+        "operationId": "CancelPedidoVenta",
+        "parameters": [
+          {
+            "name": "empresa",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "nic",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "remito",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 3
+          },
+          {
+            "name": "receptor",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 4
+          },
+          {
+            "name": "codigo",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 5
+          },
+          {
+            "name": "tipo",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 6
+          },
+          {
+            "name": "formpag",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 7
+          },
+          {
+            "name": "accessToken",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 8
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelPedidoVentaCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 9
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PedidoVenta": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "conceptos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Concepto"
+            }
+          },
+          "usr_estadopedido": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "usR_PlanillaCerrada": {
+            "type": "boolean"
+          },
+          "listaPrecioCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "workflowCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ClienteCodigoPostal": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_DestinatarioCodigoPostal": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_aCuentayOrdenTerceros": {
+            "type": "boolean"
+          },
+          "usR_EsRetiro": {
+            "type": "boolean"
+          },
+          "usR_DestinatarioNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_UnidadTarifada": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_EsToxico": {
+            "type": "boolean"
+          },
+          "usR_OrdenServicioRetiro": {
+            "type": "string",
+            "nullable": true
+          },
+          "cdS_Ensobrado": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_NumeroDeEnvio": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ImpresoFNN": {
+            "type": "boolean"
+          },
+          "provinciaDestinoCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoEnvioECommerce": {
+            "type": "string",
+            "nullable": true
+          },
+          "numeroInterno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usR_ClienteNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_SucursalOrigen": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_EsCadenaFrio": {
+            "type": "boolean"
+          },
+          "usR_NroRendiUNIX": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_MetrosCubicos": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "caeFechaVto": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ClienteContraReembolsoID": {
+            "type": "string",
+            "nullable": true
+          },
+          "numeroComprobante": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha": {
+            "type": "string",
+            "nullable": true
+          },
+          "cliente": {
+            "type": "string",
+            "nullable": true
+          },
+          "transaccionTipoCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_SucursalCliente": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_CuerpoFactura": {
+            "type": "string",
+            "nullable": true
+          },
+          "origenECommerce": {
+            "type": "string",
+            "nullable": true
+          },
+          "cotizaciones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Cotizacione"
+            }
+          },
+          "usR_FechaEntrega": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_KilosReales": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "usR_Maildestinatario": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_NroViaje": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ImporteContraReembolso": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "usR_Itinerario": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_TipoTarifa": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_NroReparto": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_RemitenteNombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "cdS_Facturado": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_FechaConforme": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_Recorrido": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_HabilitaPagoCR": {
+            "type": "boolean"
+          },
+          "usR_NumeroGuia": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_KilosFacturados": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "provinciaOrigenCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_EntregarFechaPactada": {
+            "type": "boolean"
+          },
+          "monedaCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
+            }
+          },
+          "usR_URLHistorial": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_RemitenteTelefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "transaccionid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cae": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_SucursalIDOCAbierta": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ClienteTelefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_CuentaDelCliente": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ClienteDomicilio": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ClienteLocalidad": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_CantBultos": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usR_RemitenteCodigoPostal": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_RemitenteCUIT": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ImpresoTMS": {
+            "type": "boolean"
+          },
+          "usR_CobroContraReembolsoEfectivo": {
+            "type": "boolean"
+          },
+          "usR_SolicitanteID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "usR_HabilitaEntrega": {
+            "type": "boolean"
+          },
+          "usR_TipoViaje": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_EsAereo": {
+            "type": "boolean"
+          },
+          "usR_FechaPactada": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_DestinatarioCUIT": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_Mailremitente": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_AdicionalReceptoria": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "usR_SeguroPropio": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_NroOperador": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "identificacionExterna": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_DestinatarioDomicilio": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ContraReemBolso": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ClaveCliente": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_DestinatarioTelefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_PlanillaDeConforme": {
+            "type": "string",
+            "nullable": true
+          },
+          "condicionPagoCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "sucursalID": {
+            "type": "string",
+            "nullable": true
+          },
+          "empresaCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_DestinatarioLocalidad": {
+            "type": "string",
+            "nullable": true
+          },
+          "transaccionSubtipoCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "comprobanteTipoImpositivoCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_EsProvisoria": {
+            "type": "boolean"
+          },
+          "vendedorCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_RemitoCliente": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_ValorDeclarado": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "usR_RemitoAsoc": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_PendienteCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_PlanillaRecibida": {
+            "type": "boolean"
+          },
+          "usR_RemitenteDomicilio": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_Tipodecarga": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_SucursalDestino": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_URLDocDigital": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_EtiquetaModificada": {
+            "type": "boolean"
+          },
+          "cdS_Rendido": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_CantidadArticulosenBultos": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usR_Codigodezona": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_DetalleMercaderia": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_RemitenteLocalidad": {
+            "type": "string",
+            "nullable": true
+          },
+          "observacion2": {
+            "type": "string",
+            "nullable": true
+          },
+          "observacion1": {
+            "type": "string",
+            "nullable": true
+          },
+          "usR_BloqueoEntrega": {
+            "type": "boolean"
+          },
+          "vinculacionOrigen": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Concepto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "conceptoImporteGravado": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "importeEditables": {
+            "type": "boolean"
+          },
+          "conceptoImporte": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "conceptoCodigo": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Cotizacione": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "monedaID": {
+            "type": "string",
+            "nullable": true
+          },
+          "cotizacion": {
+            "type": "number",
+            "format": "decimal"
+          }
+        }
+      },
+      "Item": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cantidad2": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "usrNroPlanilla": {
+            "type": "string",
+            "nullable": true
+          },
+          "usrNroGuia": {
+            "type": "string",
+            "nullable": true
+          },
+          "precioBase": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "importeImpuestoIncluido": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "importe": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "cantidadPresentacion": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "partidaNumero": {
+            "type": "string",
+            "nullable": true
+          },
+          "productoCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "descuento1": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "provinciaItemOrigenCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinciaItemDestinoCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usrSolicitanteID": {
+            "type": "string",
+            "nullable": true
+          },
+          "cantidad": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "incluyeImpuesto": {
+            "type": "boolean"
+          },
+          "depositoIDDestino": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "dimensionDistribucion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DimensionDistribucions"
+            }
+          },
+          "usrTransaccionCNID": {
+            "type": "string",
+            "nullable": true
+          },
+          "partidaFechaVto": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartidaFechaVtos"
+            }
+          },
+          "precio": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "vinculacionOrigen": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "DimensionDistribucions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipoCalculo": {
+            "type": "string",
+            "nullable": true
+          },
+          "distribucionCodigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "distribucionItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DistribucionItem"
+            }
+          },
+          "dimensionCodigo": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "DistribucionItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "nullable": true
+          },
+          "porcentaje": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "importe": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          }
+        }
+      },
+      "PartidaFechaVtos": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "serialVersionUID": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CreatePedidoVentaCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "pedidoVenta": {
+            "$ref": "#/components/schemas/PedidoVenta"
+          }
+        }
+      },
+      "UpdatePedidoVentaCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "identificaccionExterna": {
+            "type": "string"
+          },
+          "accessToken": {
+            "type": "string"
+          }
+        }
+      },
+      "CancelPedidoVentaCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "empresa": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fcNic": {
+            "type": "string"
+          },
+          "fcRemito": {
+            "type": "string"
+          },
+          "fcReceptor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fcCodigo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fcTipo": {
+            "type": "string"
+          },
+          "fcFormpag": {
+            "type": "string"
+          },
+          "accessToken": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "type": "apiKey",
+        "description": "Type into the textbox: Bearer {your JWT token}.",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "JWT": []
+    }
+  ]
+}
