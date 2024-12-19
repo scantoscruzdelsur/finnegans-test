@@ -189,69 +189,13 @@
         "operationId": "CancelPedidoVenta",
         "parameters": [
           {
-            "name": "empresa",
+            "name": "id",
             "in": "query",
             "required": true,
             "schema": {
               "type": "string"
             },
             "x-position": 1
-          },
-          {
-            "name": "nic",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 2
-          },
-          {
-            "name": "remito",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "receptor",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 4
-          },
-          {
-            "name": "codigo",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 5
-          },
-          {
-            "name": "tipo",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 6
-          },
-          {
-            "name": "formpag",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 7
           },
           {
             "name": "accessToken",
@@ -263,18 +207,6 @@
             "x-position": 8
           }
         ],
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CancelPedidoVentaCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 9
-        },
         "responses": {
           "200": {
             "description": ""
@@ -948,28 +880,7 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "empresa": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fcNic": {
-            "type": "string"
-          },
-          "fcRemito": {
-            "type": "string"
-          },
-          "fcReceptor": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fcCodigo": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fcTipo": {
-            "type": "string"
-          },
-          "fcFormpag": {
+          "id": {
             "type": "string"
           },
           "accessToken": {

@@ -4,6 +4,7 @@ using Finnegans.Infrastructure;
 using Finnegans.Infrastructure.Data;
 using Finnegans.Web;
 using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,10 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 
 builder.Services.AddValidatorsFromAssemblyContaining<GetPedidoVentaQueryValidator>();
+
+builder.Services.AddEndpointsApiExplorer();
+
+
 
 
 var app = builder.Build();
@@ -34,14 +39,11 @@ app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-//app.UseSwaggerUi(settings =>
-//{
-//settings.Path = "/api";
-//settings.DocumentPath = "/api/specification.json";
-//});
-
-
-app.UseSwaggerUi();
+app.UseSwaggerUi(settings =>
+{
+    settings.Path = "/api";
+    settings.DocumentPath = "/api/specification.json";
+});
 
 app.MapControllerRoute(
     name: "default",

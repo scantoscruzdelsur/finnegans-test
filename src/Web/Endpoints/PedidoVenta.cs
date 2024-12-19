@@ -30,6 +30,7 @@ public class PedidoVentaEndpoint : EndpointGroupBase
 
         app.MapPut("api/PedidoVenta/Cancel/{id}", CancelPedidoVenta)
             .WithName("CancelPedidoVenta");
+
     }
 
     public Task<List<PedidoVenta>> GetPedidosPorFecha(ISender sender, string updatedSince, [FromHeader] string accessToken)
@@ -80,10 +81,21 @@ public class PedidoVentaEndpoint : EndpointGroupBase
 
     public async Task<IResult> CancelPedidoVenta(ISender sender, string id, [FromHeader] string accessToken)
     {
+        if (string.IsNullOrWhiteSpace(accessToken))
+        {
+            return Results.BadRequest("El token de acceso es requerido.");
+        }
+
+        if (string.IsNullOrWhiteSpace(id))
+        {
+            return Results.BadRequest("El ID es requerido.");
+        }
+
         var command = new CancelPedidoVentaCommand(id, accessToken);
         await sender.Send(command);
         return Results.NoContent();
     }
+
 
     public async Task<IResult> DeletePedidoVenta(ISender sender, string id, [FromHeader] string accessToken)
     {

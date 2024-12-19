@@ -11,7 +11,7 @@ public class CreatePedidoVentaCommandHandler : IRequestHandler<CreatePedidoVenta
     {
         _httpClientFactory = httpClientFactory;
     }
-        
+    
     public async Task<PedidoVenta> Handle(CreatePedidoVentaCommand request, CancellationToken cancellationToken)
     {
         var httpClient = _httpClientFactory.CreateClient();

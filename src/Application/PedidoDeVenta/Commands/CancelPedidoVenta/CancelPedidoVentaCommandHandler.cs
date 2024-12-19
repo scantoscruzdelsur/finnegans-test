@@ -1,23 +1,28 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 using Finnegans.Domain.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace Finnegans.Application.PedidoDeVenta.Commands.CancelPedidoVenta;
 
 public class CancelPedidoVentaCommandHandler : IRequestHandler<CancelPedidoVentaCommand, Unit>
 {
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IConfiguration _configuration;
 
-    public CancelPedidoVentaCommandHandler(IHttpClientFactory httpClientFactory)
+    public CancelPedidoVentaCommandHandler(IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
         _httpClientFactory = httpClientFactory;
+        _configuration = configuration;
     }
 
     public async Task<Unit> Handle(CancelPedidoVentaCommand request, CancellationToken cancellationToken)
     {
+        var urlBase = _configuration.GetSection("FinnegansApi")["UrlBase"];
+
         var httpClient = _httpClientFactory.CreateClient();
 
-        var url = $"https://api.teamplace.finneg.com/api/CDSpedidoVenta/{request.IdentificacionExterna}?ACCESS_TOKEN={request.AccessToken}";
+        var url = $"{urlBase}/CDSpedidoVenta/{request.IdentificacionExterna}?ACCESS_TOKEN={request.AccessToken}";
 
         var response = await httpClient.GetAsync(url, cancellationToken);
 
@@ -69,23 +74,27 @@ public class CancelPedidoVentaCommandHandler : IRequestHandler<CancelPedidoVenta
                 break;
         }
 
-
         foreach (var item in pedidoVenta.Items)
         {
             item.vinculacionOrigen = pedidoVenta.vinculacionOrigen;
         }
 
         var jsonAEnviar = JsonSerializer.Serialize(pedidoVenta);
-        var postResponse = await httpClient.PostAsJsonAsync("https://api.teamplace.finneg.com/api/CDSpedidoVenta", pedidoVenta, cancellationToken);
+        var postResponse = await httpClient.PostAsJsonAsync($"{urlBase}/CDSpedidoVenta", pedidoVenta, cancellationToken);
 
         if (!postResponse.IsSuccessStatusCode)
         {
             throw new Exception($"Error al enviar el pedido de venta reverso. StatusCode: {postResponse.StatusCode}");
         }
 
-        // Pegarle al SP que está modificando flor
+        // Pegarle a la api que está modificando flor
 
+        var getResponse = await httpClient.GetAsync($"{urlBase}/reports/CDSAPIReversoPedidoDeVenta/ACCESS_TOKEN={request.AccessToken}&IdentificacionExterna={request.IdentificacionExterna}&IdentificacionExternaReverso={pedidoVenta.IdentificacionExterna}", cancellationToken);
+
+        
         // En el caso de que esté todo Ok, auditar la acción con la tabla de auditoría (AuditoriaAnulacionYModificacion)
+
+
 
 
         return Unit.Value;
